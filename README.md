@@ -1,6 +1,5 @@
 # Lanches-da-Merinha
 Lanchonete
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -189,14 +188,6 @@ add("Pastel 24cm Frango com Queijo","frangoq24",8)
 add("Pastel 24cm Frango","frango24",8)
 add("Pastel 24cm Queijo","queijo24",8)
 add("Pastel 24cm Pizza","pizza24",8)
-
-add("Catupiry","catupiry",1)
-add("Maionese","maionese",1)
-add("Cheddar","cheddar",1)
-add("Ketchup","ketchup",1)
-add("Milho","milho",1)
-add("Azeitona","azeitona",1)
-add("Verdura","verdura",1)
 
 mensagem += "%0ATotal: R$" + total
 
