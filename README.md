@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -222,7 +221,7 @@ add("Verdura","verdura",0)
 
 mensagem += "%0ATotal: R$" + total
 
-let numero = "5585999999999"
+let numero = "5585991923386"
 
 let url = "https://wa.me/" + numero + "?text=" + mensagem
 
