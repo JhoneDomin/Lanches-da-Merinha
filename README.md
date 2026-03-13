@@ -1,14 +1,13 @@
-# Lanches-da-Merinha
-Lanchonete
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Lanches da Merinha</title>
+<title>Lanches da Meirinha</title>
 
 <style>
 
 body{
-font-family:Arial;
+font-family: Arial;
 background:#fff5e6;
 margin:0;
 }
@@ -27,9 +26,14 @@ max-width:600px;
 margin:auto;
 }
 
+h1{
+color:#333;
+margin-top:30px;
+}
+
 h2{
 color:#ff7a00;
-margin-top:30px;
+margin-top:20px;
 }
 
 .produto{
@@ -63,16 +67,17 @@ cursor:pointer;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <header>
-Lanches da Merinha
+🍔 Lanches da Meirinha
 </header>
 
 <div class="container">
+
+<h1>🥟 Pastéis</h1>
 
 <h2>Pastéis de 14 cm</h2>
 
@@ -100,6 +105,7 @@ Lanches da Merinha
 <div class="produto">Pizza - <span class="preco">R$6</span>
 <br>Quantidade: <input type="number" id="pizza14" value="0" min="0"></div>
 
+
 <h2>Pastéis de 24 cm</h2>
 
 <div class="produto">Carne - <span class="preco">R$8</span>
@@ -126,32 +132,49 @@ Lanches da Merinha
 <div class="produto">Pizza - <span class="preco">R$8</span>
 <br>Quantidade: <input type="number" id="pizza24" value="0" min="0"></div>
 
+
 <h2>Adicionais</h2>
 
-<div class="produto">Catupiry - R$1
+<div class="produto">Catupiry
 <br>Quantidade: <input type="number" id="catupiry" value="0" min="0"></div>
 
-<div class="produto">Maionese - R$1
+<div class="produto">Maionese
 <br>Quantidade: <input type="number" id="maionese" value="0" min="0"></div>
 
-<div class="produto">Cheddar - R$1
+<div class="produto">Cheddar
 <br>Quantidade: <input type="number" id="cheddar" value="0" min="0"></div>
 
-<div class="produto">Ketchup - R$1
+<div class="produto">Ketchup
 <br>Quantidade: <input type="number" id="ketchup" value="0" min="0"></div>
 
-<div class="produto">Milho - R$1
+<div class="produto">Milho
 <br>Quantidade: <input type="number" id="milho" value="0" min="0"></div>
 
-<div class="produto">Azeitona - R$1
+<div class="produto">Azeitona
 <br>Quantidade: <input type="number" id="azeitona" value="0" min="0"></div>
 
-<div class="produto">Verdura - R$1
+<div class="produto">Verdura
 <br>Quantidade: <input type="number" id="verdura" value="0" min="0"></div>
+
+
+<h1>🍛 Pratinhos</h1>
+
+<div class="produto">
+Em breve...
+</div>
+
+
+<h1>🍟 Batatinhos</h1>
+
+<div class="produto">
+Em breve...
+</div>
+
 
 <button onclick="enviarPedido()">Enviar pedido no WhatsApp</button>
 
 </div>
+
 
 <script>
 
@@ -189,9 +212,17 @@ add("Pastel 24cm Frango","frango24",8)
 add("Pastel 24cm Queijo","queijo24",8)
 add("Pastel 24cm Pizza","pizza24",8)
 
+add("Catupiry","catupiry",0)
+add("Maionese","maionese",0)
+add("Cheddar","cheddar",0)
+add("Ketchup","ketchup",0)
+add("Milho","milho",0)
+add("Azeitona","azeitona",0)
+add("Verdura","verdura",0)
+
 mensagem += "%0ATotal: R$" + total
 
-let numero = "5585991923386"
+let numero = "5585999999999"
 
 let url = "https://wa.me/" + numero + "?text=" + mensagem
 
