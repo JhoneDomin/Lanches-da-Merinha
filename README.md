@@ -1,7 +1,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lanches da Meirinha</title>
+<title>Lanches da Merinha</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
@@ -19,7 +19,7 @@ button{background:#25D366;color:white;border:none;padding:15px;font-size:16px;bo
 </style>
 </head>
 <body>
-<header>🍔 Lanches da Meirinha</header>
+<header>🍔 Lanches da Merinha</header>
 <div class="container"><h1>🥟 Pastéis</h1>
 <h2>14 cm</h2>
 <div class="produto">Carne - <span class="preco">R$6</span><br><input type="number" id="carne14" value="0" min="0"></div>
@@ -44,7 +44,7 @@ button{background:#25D366;color:white;border:none;padding:15px;font-size:16px;bo
 <div class="produto">Ketchup <input type="number" id="ketchup" value="0" min="0"></div>
 <div class="produto">Milho <input type="number" id="milho" value="0" min="0"></div>
 <div class="produto">Azeitona <input type="number" id="azeitona" value="0" min="0"></div>
-<div class="produto">Verdura <input type="number" id="verdura" value="0" min="0"></div><h1>🍛 Pratinhos</h1>
+<div class="produto">Verduras <input type="number" id="verdura" value="0" min="0"></div><h1>🍛 Pratinhos</h1>
 <div class="card" id="card1">
 <h3>Tradicional - R$8</h3>
 Quantidade: <input type="number" id="pratinho1" value="0" min="0">
