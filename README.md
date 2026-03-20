@@ -20,9 +20,7 @@ button{background:#25D366;color:white;border:none;padding:15px;font-size:16px;bo
 </style>
 </head>
 <body>
-<header>
-🍔 Lanches da Meirinha
-</header>
+<header>🍔 Lanches da Meirinha</header>
 <div class="container"><h1>🥟 Pastéis</h1>
 <h2>14 cm</h2>
 <div class="produto">Carne - <span class="preco">R$6</span><br><input type="number" id="carne14" value="0" min="0"></div>
@@ -48,8 +46,9 @@ button{background:#25D366;color:white;border:none;padding:15px;font-size:16px;bo
 <div class="produto">Milho <input type="number" id="milho" value="0" min="0"></div>
 <div class="produto">Azeitona <input type="number" id="azeitona" value="0" min="0"></div>
 <div class="produto">Verdura <input type="number" id="verdura" value="0" min="0"></div><h1>🍛 Pratinhos</h1>
-<div class="card">
+<div class="card" id="card1">
 <h3>Tradicional - R$8</h3>
+Quantidade: <input type="number" id="pratinho1" value="0" min="0">
 <label><input type="checkbox"> Arroz</label>
 <label><input type="checkbox"> Farofa</label>
 <label><input type="checkbox"> Salada</label>
@@ -57,8 +56,9 @@ button{background:#25D366;color:white;border:none;padding:15px;font-size:16px;bo
 <label><input type="checkbox"> Creme de Galinha</label>
 <label><input type="checkbox"> Escondidinho</label>
 <label><input type="checkbox"> Vatapá</label>
-</div><div class="card">
+</div><div class="card" id="card2">
 <h3>Estou com Fome - R$11</h3>
+Quantidade: <input type="number" id="pratinho2" value="0" min="0">
 <label><input type="checkbox"> Baião</label>
 <label><input type="checkbox"> Vatapá</label>
 <label><input type="checkbox"> Escondidinho</label>
@@ -95,9 +95,12 @@ Quantidade: <input type="number" id="macaxeira" value="0" min="0">
 function enviarPedido(){
 let total=0
 let mensagem="Pedido:%0A"
+
 function add(nome,id,preco){
 let q=document.getElementById(id)?.value
 if(q>0){mensagem+=q+" "+nome+"%0A"; total+=q*preco}}
+
+// Pastéis
 add("Pastel 14 Carne","carne14",6)
 add("Pastel 14 Misto","misto14",6)
 add("Pastel 14 Mistão","mistao14",6)
@@ -114,26 +117,27 @@ add("Pastel 24 Frango c/ queijo","frangoq24",8)
 add("Pastel 24 Frango","frango24",8)
 add("Pastel 24 Queijo","queijo24",8)
 add("Pastel 24 Pizza","pizza24",8)
+
 if(document.getElementById('batataExtra')?.checked){total+=3; mensagem+="+ Batata Extra%0A"}
 if(document.getElementById('calabresaExtra')?.checked){total+=3; mensagem+="+ Calabresa Extra%0A"}
 
 // PRATINHOS
-function addPratinho(nome, preco, selector){
-let marcado = document.querySelector(selector)
-if(marcado){
-let itens = []
-marcado.querySelectorAll("input[type='checkbox']:checked").forEach(c=>{
+function addPratinho(nome, preco, id, container){
+let q=document.getElementById(id)?.value
+if(q>0){
+let itens=[]
+container.querySelectorAll("input[type='checkbox']:checked").forEach(c=>{
  itens.push(c.parentElement.innerText.trim())
 })
-mensagem += "1 " + nome
-if(itens.length>0){mensagem += " ("+itens.join(', ')+")"}
-mensagem += "%0A"
-total += preco
+mensagem+=q+" "+nome
+if(itens.length>0){mensagem+=" ("+itens.join(', ')+")"}
+mensagem+="%0A"
+total+=q*preco
 }
 }
 
-addPratinho("Pratinho Tradicional",8,document.querySelectorAll('.card')[0])
-addPratinho("Pratinho Estou com Fome",11,document.querySelectorAll('.card')[1])
+addPratinho("Pratinho Tradicional",8,"pratinho1",document.getElementById('card1'))
+addPratinho("Pratinho Estou com Fome",11,"pratinho2",document.getElementById('card2'))
 
 // BATATINHAS
 function addBatata(nome,id,preco){
@@ -153,7 +157,7 @@ addBatata("Batata com Calabresa","batataCalabresa",13)
 addBatata("Macaxeira","macaxeira",11)
 
 mensagem+="%0ATotal: R$"+total
-let numero="5585992265249"
+let numero="55859929265249"
 window.open("https://wa.me/"+numero+"?text="+mensagem)
 }
 </script></body>
