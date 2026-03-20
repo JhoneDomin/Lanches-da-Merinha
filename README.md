@@ -44,7 +44,7 @@ button{background:#25D366;color:white;border:none;padding:15px;font-size:16px;bo
 <div class="produto">Ketchup <input type="number" id="ketchup" value="0" min="0"></div>
 <div class="produto">Milho <input type="number" id="milho" value="0" min="0"></div>
 <div class="produto">Azeitona <input type="number" id="azeitona" value="0" min="0"></div>
-<div class="produto">Verduras <input type="number" id="verdura" value="0" min="0"></div><h1>🍛 Pratinhos</h1>
+<label><input type="checkbox">Verduras <input type="number" id="verdura" value="0" min="0"></div><h1>🍛 Pratinhos</h1>
 <div class="card" id="card1">
 <h3>Tradicional - R$8</h3>
 Quantidade: <input type="number" id="pratinho1" value="0" min="0">
@@ -53,14 +53,14 @@ Quantidade: <input type="number" id="pratinho1" value="0" min="0">
 <label><input type="checkbox"> Salada</label>
 <label><input type="checkbox"> Vinagrete</label>
 <label><input type="checkbox"> Creme de Galinha</label>
-<label><input type="checkbox"> Escondidinho</label>
+<label><input type="checkbox"> Escondidinho de Carne</label>
 <label><input type="checkbox"> Vatapá</label>
 </div><div class="card" id="card2">
 <h3>Estou com Fome - R$11</h3>
 Quantidade: <input type="number" id="pratinho2" value="0" min="0">
 <label><input type="checkbox"> Baião</label>
 <label><input type="checkbox"> Vatapá</label>
-<label><input type="checkbox"> Escondidinho</label>
+<label><input type="checkbox"> Escondidinho de Carne</label>
 <label><input type="checkbox"> Paçoca</label>
 <label><input type="checkbox"> Macaxeira</label>
 </div><h2>Adicionais (R$3)</h2>
