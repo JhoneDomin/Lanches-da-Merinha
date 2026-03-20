@@ -68,21 +68,23 @@ button{background:#25D366;color:white;border:none;padding:15px;font-size:16px;bo
 <div class="card">
 <label><input type="checkbox" id="batataExtra"> Batata frita</label>
 <label><input type="checkbox" id="calabresaExtra"> Calabresa</label>
-</div><h1>🍟 Batatinhos</h1>
-<div class="card">
+</div><h1>🍟 Batatinhas</h1><div class="card">
 <h3>Batata Simples - R$11</h3>
+Quantidade: <input type="number" id="batataSimples" value="0" min="0">
 <label><input type="checkbox"> Ketchup</label>
 <label><input type="checkbox"> Maionese</label>
 <label><input type="checkbox"> Cheddar</label>
 <label><input type="checkbox"> Catupiry</label>
 </div><div class="card">
 <h3>Batata com Calabresa - R$13</h3>
+Quantidade: <input type="number" id="batataCalabresa" value="0" min="0">
 <label><input type="checkbox"> Ketchup</label>
 <label><input type="checkbox"> Maionese</label>
 <label><input type="checkbox"> Cheddar</label>
 <label><input type="checkbox"> Catupiry</label>
 </div><div class="card">
 <h3>Macaxeira - R$11</h3>
+Quantidade: <input type="number" id="macaxeira" value="0" min="0">
 <label><input type="checkbox"> Ketchup</label>
 <label><input type="checkbox"> Maionese</label>
 <label><input type="checkbox"> Cheddar</label>
@@ -114,6 +116,42 @@ add("Pastel 24 Queijo","queijo24",8)
 add("Pastel 24 Pizza","pizza24",8)
 if(document.getElementById('batataExtra')?.checked){total+=3; mensagem+="+ Batata Extra%0A"}
 if(document.getElementById('calabresaExtra')?.checked){total+=3; mensagem+="+ Calabresa Extra%0A"}
+
+// PRATINHOS
+function addPratinho(nome, preco, selector){
+let marcado = document.querySelector(selector)
+if(marcado){
+let itens = []
+marcado.querySelectorAll("input[type='checkbox']:checked").forEach(c=>{
+ itens.push(c.parentElement.innerText.trim())
+})
+mensagem += "1 " + nome
+if(itens.length>0){mensagem += " ("+itens.join(', ')+")"}
+mensagem += "%0A"
+total += preco
+}
+}
+
+addPratinho("Pratinho Tradicional",8,document.querySelectorAll('.card')[0])
+addPratinho("Pratinho Estou com Fome",11,document.querySelectorAll('.card')[1])
+
+// BATATINHAS
+function addBatata(nome,id,preco){
+let q=document.getElementById(id)?.value
+if(q>0){
+let adicionais=[]
+let checks=document.querySelectorAll(`#${id} ~ label input:checked`)
+checks.forEach(c=>adicionais.push(c.parentElement.innerText.trim()))
+mensagem+=q+" "+nome
+if(adicionais.length>0){mensagem+=" ("+adicionais.join(', ')+")"}
+mensagem+="%0A"
+total+=q*preco
+}}
+
+addBatata("Batata Simples","batataSimples",11)
+addBatata("Batata com Calabresa","batataCalabresa",13)
+addBatata("Macaxeira","macaxeira",11)
+
 mensagem+="%0ATotal: R$"+total
 let numero="5585992265249"
 window.open("https://wa.me/"+numero+"?text="+mensagem)
