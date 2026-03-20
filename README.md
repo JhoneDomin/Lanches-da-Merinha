@@ -156,7 +156,7 @@ addBatata("Batata com Calabresa","batataCalabresa",13)
 addBatata("Macaxeira","macaxeira",11)
 
 mensagem+="%0ATotal: R$"+total
-let numero="55(85)9929265249"
+let numero="55(85)992265249"
 window.open("https://wa.me/"+numero+"?text="+mensagem)
 }
 </script></body>
