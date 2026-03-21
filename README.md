@@ -1,24 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lanches da Merinha</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{background:#fff5e6;}
 header{background:linear-gradient(90deg,#ff7a00,#ff9a3c);color:white;text-align:center;padding:20px;font-size:26px;}
 .container{padding:20px;max-width:800px;margin:auto;}
 h1{margin-top:25px;color:#333;}
-h2{color:#ff7a00;margin:15px 0;}
-.produto, .pastelBox{background:white;padding:15px;border-radius:12px;margin-bottom:12px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
-.preco{color:#ff3c00;font-weight:bold;}
-input, select{padding:5px;margin-top:5px;}
+
+.box{
+background:white;
+padding:15px;
+border-radius:12px;
+margin-bottom:12px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
 label{display:block;margin:5px 0;}
-button{background:#25D366;color:white;border:none;padding:15px;font-size:16px;border-radius:10px;width:100%;margin-top:20px;cursor:pointer;}
-.btnAdd{background:#ff7a00;margin-top:10px;}
-.btnRemove{background:#ff3c00;margin-top:10px;}
+select,input{padding:5px;margin-top:5px;}
+
+button{
+background:#25D366;
+color:white;
+border:none;
+padding:15px;
+border-radius:10px;
+width:100%;
+margin-top:10px;
+font-size:16px;
+}
+
+.btnAdd{background:#ff7a00;}
+.btnRemove{background:#ff3c00;}
+
+.totalBox{
+background:#fff;
+border:2px solid #ff7a00;
+padding:15px;
+border-radius:12px;
+text-align:center;
+font-size:20px;
+margin-top:20px;
+}
 </style>
 </head>
+
 <body>
 
 <header>🍔 Lanches da Merinha</header>
@@ -26,90 +58,52 @@ button{background:#25D366;color:white;border:none;padding:15px;font-size:16px;bo
 <div class="container">
 
 <h1>🥟 Pastéis</h1>
-
-<div id="listaPasteis"></div>
-
-<button class="btnAdd" onclick="adicionarPastel()">➕ Adicionar outro pastel</button>
+<div id="pasteis"></div>
+<button class="btnAdd" onclick="addPastel()">➕ Adicionar pastel</button>
 
 <h1>🍛 Pratinhos</h1>
-
-<div class="card" id="card1">
-<h3>Tradicional - R$8</h3>
-Quantidade: <input type="number" id="pratinho1" value="0" min="0">
-<label><input type="checkbox"> Arroz</label>
-<label><input type="checkbox"> Farofa</label>
-<label><input type="checkbox"> Salada</label>
-<label><input type="checkbox"> Vinagrete</label>
-<label><input type="checkbox"> Creme de Galinha</label>
-<label><input type="checkbox"> Escondidinho de Carne</label>
-<label><input type="checkbox"> Vatapá</label>
-</div>
-
-<div class="card" id="card2">
-<h3>Estou com Fome - R$11</h3>
-Quantidade: <input type="number" id="pratinho2" value="0" min="0">
-<label><input type="checkbox"> Baião</label>
-<label><input type="checkbox"> Vatapá</label>
-<label><input type="checkbox"> Escondidinho de Carne</label>
-<label><input type="checkbox"> Paçoca</label>
-<label><input type="checkbox"> Macaxeira</label>
-</div>
-
-<h2>Adicionais (R$3)</h2>
-<div class="card">
-<label><input type="checkbox" id="batataExtra"> Batata frita</label>
-<label><input type="checkbox" id="calabresaExtra"> Calabresa</label>
-</div>
+<div id="pratinhos"></div>
+<button class="btnAdd" onclick="addPratinho()">➕ Adicionar pratinho</button>
 
 <h1>🍟 Batatinhas</h1>
+<div id="batatas"></div>
+<button class="btnAdd" onclick="addBatata()">➕ Adicionar batata</button>
 
-<div class="card">
-<h3>Batata Simples - R$11</h3>
-Quantidade: <input type="number" id="batataSimples" value="0" min="0">
-<label><input type="checkbox"> Ketchup</label>
-<label><input type="checkbox"> Maionese</label>
-<label><input type="checkbox"> Cheddar</label>
-<label><input type="checkbox"> Catupiry</label>
-</div>
-
-<div class="card">
-<h3>Batata com Calabresa - R$13</h3>
-Quantidade: <input type="number" id="batataCalabresa" value="0" min="0">
-<label><input type="checkbox"> Ketchup</label>
-<label><input type="checkbox"> Maionese</label>
-<label><input type="checkbox"> Cheddar</label>
-<label><input type="checkbox"> Catupiry</label>
-</div>
-
-<div class="card">
-<h3>Macaxeira - R$11</h3>
-Quantidade: <input type="number" id="macaxeira" value="0" min="0">
-<label><input type="checkbox"> Ketchup</label>
-<label><input type="checkbox"> Maionese</label>
-<label><input type="checkbox"> Cheddar</label>
-<label><input type="checkbox"> Catupiry</label>
+<div class="totalBox">
+Total: R$ <span id="total">0</span>
 </div>
 
 <button onclick="enviarPedido()">Enviar pedido no WhatsApp</button>
 
 </div>
 
+<!-- 🧾 RESUMO -->
+<div id="resumoBox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000000cc; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:12px; width:90%; max-width:400px; max-height:80%; overflow:auto;">
+<h2>🧾 Resumo do Pedido</h2>
+<div id="resumoConteudo"></div>
+<button onclick="confirmarPedido()">✅ Confirmar Pedido</button>
+<button onclick="fecharResumo()" class="btnRemove">❌ Cancelar</button>
+</div>
+</div>
+
 <script>
-let contador = 0;
+let countPastel=0, countPrato=0, countBatata=0;
 
-function adicionarPastel(){
-contador++;
+// ===== PASTEL =====
+function addPastel(){
+countPastel++;
 
-let div = document.createElement("div");
-div.className = "pastelBox";
+let div=document.createElement("div");
+div.className="box";
 
-div.innerHTML = `
-<h3>Pastel ${contador}</h3>
+div.innerHTML=`
+<h3>Pastel ${countPastel}</h3>
 
 <label>Tamanho:</label>
-<select class="tamanho">
-<option value="14">14 cm</option>
-<option value="24">24 cm</option>
+<select class="tam">
+<option value="6">14 cm - R$6</option>
+<option value="8">24 cm - R$8</option>
 </select>
 
 <label>Sabor:</label>
@@ -131,83 +125,185 @@ div.innerHTML = `
 <label><input type="checkbox" value="Ketchup"> Ketchup</label>
 <label><input type="checkbox" value="Milho"> Milho</label>
 <label><input type="checkbox" value="Azeitona"> Azeitona</label>
-<label><input type="checkbox" value="Verduras"> Verduras</label>
 
-<button class="btnRemove" onclick="removerPastel(this)">❌ Remover pastel</button>
+<button class="btnRemove" onclick="this.parentElement.remove(); atualizarTotal()">❌ Remover</button>
 `;
 
-document.getElementById("listaPasteis").appendChild(div);
+document.getElementById("pasteis").appendChild(div);
+atualizarTotal();
 }
 
-// remover
-function removerPastel(botao){
-botao.parentElement.remove();
-reorganizar();
+// ===== PRATINHO =====
+function addPratinho(){
+countPrato++;
+
+let div=document.createElement("div");
+div.className="box";
+
+div.innerHTML=`
+<h3>Pratinho ${countPrato}</h3>
+
+<label>Tipo:</label>
+<select class="tipo">
+<option value="8">Tradicional - R$8</option>
+<option value="11">Estou com Fome - R$11</option>
+</select>
+
+<p>Itens:</p>
+<label><input type="checkbox"> Arroz</label>
+<label><input type="checkbox"> Farofa</label>
+<label><input type="checkbox"> Salada</label>
+<label><input type="checkbox"> Vinagrete</label>
+<label><input type="checkbox"> Vatapá</label>
+
+<button class="btnRemove" onclick="this.parentElement.remove(); atualizarTotal()">❌ Remover</button>
+`;
+
+document.getElementById("pratinhos").appendChild(div);
+atualizarTotal();
 }
 
-// reorganiza numeração
-function reorganizar(){
-let todos = document.querySelectorAll(".pastelBox h3");
-todos.forEach((el, i)=>{
-el.innerText = "Pastel " + (i+1);
-});
-contador = todos.length;
+// ===== BATATA =====
+function addBatata(){
+countBatata++;
+
+let div=document.createElement("div");
+div.className="box";
+
+div.innerHTML=`
+<h3>Batata ${countBatata}</h3>
+
+<label>Tipo:</label>
+<select class="tipo">
+<option value="11">Simples - R$11</option>
+<option value="13">Com Calabresa - R$13</option>
+<option value="11">Macaxeira - R$11</option>
+</select>
+
+<p>Adicionais:</p>
+<label><input type="checkbox"> Ketchup</label>
+<label><input type="checkbox"> Maionese</label>
+<label><input type="checkbox"> Cheddar</label>
+
+<button class="btnRemove" onclick="this.parentElement.remove(); atualizarTotal()">❌ Remover</button>
+`;
+
+document.getElementById("batatas").appendChild(div);
+atualizarTotal();
 }
+
+// ===== TOTAL =====
+function atualizarTotal(){
+let total=0;
+
+document.querySelectorAll("#pasteis .tam").forEach(s=> total+=parseInt(s.value));
+document.querySelectorAll("#pratinhos .tipo").forEach(s=> total+=parseInt(s.value));
+document.querySelectorAll("#batatas .tipo").forEach(s=> total+=parseInt(s.value));
+
+document.getElementById("total").innerText=total;
+}
+
+document.addEventListener("change", atualizarTotal);
 
 // inicial
-adicionarPastel();
+addPastel();
 
+// ===== RESUMO =====
 function enviarPedido(){
-let total = 0;
-let mensagem = "Pedido:%0A";
+let html="";
+let total=document.getElementById("total").innerText;
 
 // PASTEIS
-document.querySelectorAll(".pastelBox").forEach((p, i)=>{
-let tamanho = p.querySelector(".tamanho").value;
-let sabor = p.querySelector(".sabor").value;
+document.querySelectorAll("#pasteis .box").forEach((p,i)=>{
+let sabor=p.querySelector(".sabor").value;
+let tamanho=p.querySelector(".tam").selectedOptions[0].text;
 
-let adicionais = [];
-p.querySelectorAll("input:checked").forEach(c=>{
-adicionais.push(c.value);
+let add=[];
+p.querySelectorAll("input:checked").forEach(c=>add.push(c.value));
+
+html+=`<b>Pastel ${i+1}:</b> ${sabor} (${tamanho})`;
+if(add.length) html+="<br>➕ "+add.join(", ");
+html+="<br><br>";
 });
-
-mensagem += `%0APastel ${i+1}: ${sabor} (${tamanho} cm)`;
-
-if(adicionais.length>0){
-mensagem += " - " + adicionais.join(", ");
-}
-
-mensagem += "%0A";
-
-total += (tamanho == 14 ? 6 : 8);
-});
-
-// extras
-if(document.getElementById('batataExtra')?.checked){total+=3; mensagem+="+ Batata Extra%0A"}
-if(document.getElementById('calabresaExtra')?.checked){total+=3; mensagem+="+ Calabresa Extra%0A"}
 
 // PRATINHOS
-function addPratinho(nome, preco, id, container){
-let q=document.getElementById(id)?.value
-if(q>0){
-let itens=[]
-container.querySelectorAll("input[type='checkbox']:checked").forEach(c=>{
- itens.push(c.parentElement.innerText.trim())
-})
-mensagem+=q+" "+nome
-if(itens.length>0){mensagem+=" ("+itens.join(', ')+")"}
-mensagem+="%0A"
-total+=q*preco
+document.querySelectorAll("#pratinhos .box").forEach((p,i)=>{
+let tipo=p.querySelector(".tipo").selectedOptions[0].text;
+
+let itens=[];
+p.querySelectorAll("input:checked").forEach(c=>itens.push(c.parentElement.innerText));
+
+html+=`<b>Pratinho ${i+1}:</b> ${tipo}`;
+if(itens.length) html+="<br>🍛 "+itens.join(", ");
+html+="<br><br>";
+});
+
+// BATATAS
+document.querySelectorAll("#batatas .box").forEach((p,i)=>{
+let tipo=p.querySelector(".tipo").selectedOptions[0].text;
+
+let itens=[];
+p.querySelectorAll("input:checked").forEach(c=>itens.push(c.parentElement.innerText));
+
+html+=`<b>Batata ${i+1}:</b> ${tipo}`;
+if(itens.length) html+="<br>🍟 "+itens.join(", ");
+html+="<br><br>";
+});
+
+html+=`<hr><b>Total: R$ ${total}</b>`;
+
+document.getElementById("resumoConteudo").innerHTML=html;
+document.getElementById("resumoBox").style.display="flex";
 }
+
+function fecharResumo(){
+document.getElementById("resumoBox").style.display="none";
 }
 
-addPratinho("Pratinho Tradicional",8,"pratinho1",document.getElementById('card1'))
-addPratinho("Pratinho Estou com Fome",11,"pratinho2",document.getElementById('card2'))
+// ===== WHATSAPP =====
+function confirmarPedido(){
+let msg="Pedido:%0A";
 
-mensagem+="%0ATotal: R$"+total
+// PASTEIS
+document.querySelectorAll("#pasteis .box").forEach((p,i)=>{
+let sabor=p.querySelector(".sabor").value;
+let tamanho=p.querySelector(".tam").selectedOptions[0].text;
 
-let numero="5585992265249"
-window.open("https://wa.me/"+numero+"?text="+mensagem)
+let add=[];
+p.querySelectorAll("input:checked").forEach(c=>add.push(c.value));
+
+msg+=`%0APastel ${i+1}: ${sabor} (${tamanho})`;
+if(add.length) msg+=" - "+add.join(", ");
+msg+="%0A";
+});
+
+// PRATINHOS
+document.querySelectorAll("#pratinhos .box").forEach((p,i)=>{
+let tipo=p.querySelector(".tipo").selectedOptions[0].text;
+
+let itens=[];
+p.querySelectorAll("input:checked").forEach(c=>itens.push(c.parentElement.innerText));
+
+msg+=`%0APratinho ${i+1}: ${tipo}`;
+if(itens.length) msg+=" - "+itens.join(", ");
+msg+="%0A";
+});
+
+// BATATAS
+document.querySelectorAll("#batatas .box").forEach((p,i)=>{
+let tipo=p.querySelector(".tipo").selectedOptions[0].text;
+
+let itens=[];
+p.querySelectorAll("input:checked").forEach(c=>itens.push(c.parentElement.innerText));
+
+msg+=`%0ABatata ${i+1}: ${tipo}`;
+if(itens.length) msg+=" - "+itens.join(", ");
+msg+="%0A";
+});
+
+msg+=`%0ATotal: R$ ${document.getElementById("total").innerText}`;
+
+window.open("https://wa.me/5585992265249?text="+msg);
 }
 </script>
 
