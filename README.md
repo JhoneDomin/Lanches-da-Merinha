@@ -10,12 +10,13 @@ header{background:linear-gradient(90deg,#ff7a00,#ff9a3c);color:white;text-align:
 .container{padding:20px;max-width:800px;margin:auto;}
 h1{margin-top:25px;color:#333;}
 h2{color:#ff7a00;margin:15px 0;}
-.produto{background:white;padding:15px;border-radius:12px;margin-bottom:12px;box-shadow:0 4px 10px rgba(0,0,0,0.1);} 
+.produto, .pastelBox{background:white;padding:15px;border-radius:12px;margin-bottom:12px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
 .preco{color:#ff3c00;font-weight:bold;}
-input{width:60px;padding:5px;margin-top:5px;}
+input, select{padding:5px;margin-top:5px;}
 label{display:block;margin:5px 0;}
 button{background:#25D366;color:white;border:none;padding:15px;font-size:16px;border-radius:10px;width:100%;margin-top:20px;cursor:pointer;}
-.card{background:white;padding:15px;border-radius:12px;margin-bottom:12px;box-shadow:0 4px 10px rgba(0,0,0,0.1);} 
+.btnAdd{background:#ff7a00;margin-top:10px;}
+.btnRemove{background:#ff3c00;margin-top:10px;}
 </style>
 </head>
 <body>
@@ -26,36 +27,9 @@ button{background:#25D366;color:white;border:none;padding:15px;font-size:16px;bo
 
 <h1>🥟 Pastéis</h1>
 
-<h2>14 cm</h2>
-<div class="produto">Carne - <span class="preco">R$6</span><br><input type="number" id="carne14" value="0" min="0"></div>
-<div class="produto">Misto - <span class="preco">R$6</span><br><input type="number" id="misto14" value="0" min="0"></div>
-<div class="produto">Mistão - <span class="preco">R$6</span><br><input type="number" id="mistao14" value="0" min="0"></div>
-<div class="produto">Carne c/ Queijo - <span class="preco">R$6</span><br><input type="number" id="carneq14" value="0" min="0"></div>
-<div class="produto">Frango c/ Queijo - <span class="preco">R$6</span><br><input type="number" id="frangoq14" value="0" min="0"></div>
-<div class="produto">Frango - <span class="preco">R$6</span><br><input type="number" id="frango14" value="0" min="0"></div>
-<div class="produto">Queijo - <span class="preco">R$6</span><br><input type="number" id="queijo14" value="0" min="0"></div>
-<div class="produto">Pizza - <span class="preco">R$6</span><br><input type="number" id="pizza14" value="0" min="0"></div>
+<div id="listaPasteis"></div>
 
-<h2>24 cm</h2>
-<div class="produto">Carne - <span class="preco">R$8</span><br><input type="number" id="carne24" value="0" min="0"></div>
-<div class="produto">Misto - <span class="preco">R$8</span><br><input type="number" id="misto24" value="0" min="0"></div>
-<div class="produto">Mistão - <span class="preco">R$8</span><br><input type="number" id="mistao24" value="0" min="0"></div>
-<div class="produto">Carne c/ Queijo - <span class="preco">R$8</span><br><input type="number" id="carneq24" value="0" min="0"></div>
-<div class="produto">Frango c/ Queijo - <span class="preco">R$8</span><br><input type="number" id="frangoq24" value="0" min="0"></div>
-<div class="produto">Frango - <span class="preco">R$8</span><br><input type="number" id="frango24" value="0" min="0"></div>
-<div class="produto">Queijo - <span class="preco">R$8</span><br><input type="number" id="queijo24" value="0" min="0"></div>
-<div class="produto">Pizza - <span class="preco">R$8</span><br><input type="number" id="pizza24" value="0" min="0"></div>
-
-<h2>Adicionais (Grátis)</h2>
-<div class="produto" id="adicionaisPastel">
-<label><input type="checkbox" value="Catupiry"> Catupiry</label>
-<label><input type="checkbox" value="Maionese"> Maionese</label>
-<label><input type="checkbox" value="Cheddar"> Cheddar</label>
-<label><input type="checkbox" value="Ketchup"> Ketchup</label>
-<label><input type="checkbox" value="Milho"> Milho</label>
-<label><input type="checkbox" value="Azeitona"> Azeitona</label>
-<label><input type="checkbox" value="Verduras"> Verduras</label>
-</div>
+<button class="btnAdd" onclick="adicionarPastel()">➕ Adicionar outro pastel</button>
 
 <h1>🍛 Pratinhos</h1>
 
@@ -121,45 +95,94 @@ Quantidade: <input type="number" id="macaxeira" value="0" min="0">
 </div>
 
 <script>
-function enviarPedido(){
-let total=0
-let mensagem="Pedido:%0A"
+let contador = 0;
 
-function getAdicionaisPastel(){
-let lista=[]
-document.querySelectorAll("#adicionaisPastel input:checked").forEach(c=>{
-lista.push(c.value)
-})
-return lista.length>0 ? " ("+lista.join(', ')+")" : ""
+function adicionarPastel(){
+contador++;
+
+let div = document.createElement("div");
+div.className = "pastelBox";
+
+div.innerHTML = `
+<h3>Pastel ${contador}</h3>
+
+<label>Tamanho:</label>
+<select class="tamanho">
+<option value="14">14 cm</option>
+<option value="24">24 cm</option>
+</select>
+
+<label>Sabor:</label>
+<select class="sabor">
+<option>Carne</option>
+<option>Misto</option>
+<option>Mistão</option>
+<option>Carne c/ queijo</option>
+<option>Frango c/ queijo</option>
+<option>Frango</option>
+<option>Queijo</option>
+<option>Pizza</option>
+</select>
+
+<p>Adicionais:</p>
+<label><input type="checkbox" value="Catupiry"> Catupiry</label>
+<label><input type="checkbox" value="Maionese"> Maionese</label>
+<label><input type="checkbox" value="Cheddar"> Cheddar</label>
+<label><input type="checkbox" value="Ketchup"> Ketchup</label>
+<label><input type="checkbox" value="Milho"> Milho</label>
+<label><input type="checkbox" value="Azeitona"> Azeitona</label>
+<label><input type="checkbox" value="Verduras"> Verduras</label>
+
+<button class="btnRemove" onclick="removerPastel(this)">❌ Remover pastel</button>
+`;
+
+document.getElementById("listaPasteis").appendChild(div);
 }
 
-function add(nome,id,preco){
-let q=document.getElementById(id)?.value
-if(q>0){
-let adicionais=getAdicionaisPastel()
-mensagem+=q+" "+nome+adicionais+"%0A"
-total+=q*preco
-}}
+// remover
+function removerPastel(botao){
+botao.parentElement.remove();
+reorganizar();
+}
 
-// Pastéis (corrigido com cm)
-add("Pastel 14 cm Carne","carne14",6)
-add("Pastel 14 cm Misto","misto14",6)
-add("Pastel 14 cm Mistão","mistao14",6)
-add("Pastel 14 cm Carne c/ queijo","carneq14",6)
-add("Pastel 14 cm Frango c/ queijo","frangoq14",6)
-add("Pastel 14 cm Frango","frango14",6)
-add("Pastel 14 cm Queijo","queijo14",6)
-add("Pastel 14 cm Pizza","pizza14",6)
+// reorganiza numeração
+function reorganizar(){
+let todos = document.querySelectorAll(".pastelBox h3");
+todos.forEach((el, i)=>{
+el.innerText = "Pastel " + (i+1);
+});
+contador = todos.length;
+}
 
-add("Pastel 24 cm Carne","carne24",8)
-add("Pastel 24 cm Misto","misto24",8)
-add("Pastel 24 cm Mistão","mistao24",8)
-add("Pastel 24 cm Carne c/ queijo","carneq24",8)
-add("Pastel 24 cm Frango c/ queijo","frangoq24",8)
-add("Pastel 24 cm Frango","frango24",8)
-add("Pastel 24 cm Queijo","queijo24",8)
-add("Pastel 24 cm Pizza","pizza24",8)
+// inicial
+adicionarPastel();
 
+function enviarPedido(){
+let total = 0;
+let mensagem = "Pedido:%0A";
+
+// PASTEIS
+document.querySelectorAll(".pastelBox").forEach((p, i)=>{
+let tamanho = p.querySelector(".tamanho").value;
+let sabor = p.querySelector(".sabor").value;
+
+let adicionais = [];
+p.querySelectorAll("input:checked").forEach(c=>{
+adicionais.push(c.value);
+});
+
+mensagem += `%0APastel ${i+1}: ${sabor} (${tamanho} cm)`;
+
+if(adicionais.length>0){
+mensagem += " - " + adicionais.join(", ");
+}
+
+mensagem += "%0A";
+
+total += (tamanho == 14 ? 6 : 8);
+});
+
+// extras
 if(document.getElementById('batataExtra')?.checked){total+=3; mensagem+="+ Batata Extra%0A"}
 if(document.getElementById('calabresaExtra')?.checked){total+=3; mensagem+="+ Calabresa Extra%0A"}
 
@@ -180,23 +203,6 @@ total+=q*preco
 
 addPratinho("Pratinho Tradicional",8,"pratinho1",document.getElementById('card1'))
 addPratinho("Pratinho Estou com Fome",11,"pratinho2",document.getElementById('card2'))
-
-// BATATINHAS
-function addBatata(nome,id,preco){
-let q=document.getElementById(id)?.value
-if(q>0){
-let adicionais=[]
-let checks=document.querySelectorAll(`#${id} ~ label input:checked`)
-checks.forEach(c=>adicionais.push(c.parentElement.innerText.trim()))
-mensagem+=q+" "+nome
-if(adicionais.length>0){mensagem+=" ("+adicionais.join(', ')+")"}
-mensagem+="%0A"
-total+=q*preco
-}}
-
-addBatata("Batata Simples","batataSimples",11)
-addBatata("Batata com Calabresa","batataCalabresa",13)
-addBatata("Macaxeira","macaxeira",11)
 
 mensagem+="%0ATotal: R$"+total
 
