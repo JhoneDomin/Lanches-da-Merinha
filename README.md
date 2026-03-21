@@ -118,7 +118,7 @@ div.innerHTML=`
 <option>Pizza</option>
 </select>
 
-<p>Adicionais:</p>
+<p><strong>Adicionais:</strong></p>
 <label><input type="checkbox" value="Catupiry"> Catupiry</label>
 <label><input type="checkbox" value="Maionese"> Maionese</label>
 <label><input type="checkbox" value="Cheddar"> Cheddar</label>
@@ -149,14 +149,14 @@ div.innerHTML=`
 <option value="11">Estou com Fome - R$11</option>
 </select>
 
-<p>Itens:</p>
+<p><strong>Itens:</strong></p>
 <label><input type="checkbox" value="Arroz"> Arroz</label>
 <label><input type="checkbox" value="Farofa"> Farofa</label>
 <label><input type="checkbox" value="Salada"> Salada</label>
 <label><input type="checkbox" value="Vinagrete"> Vinagrete</label>
 <label><input type="checkbox" value="Vatapá"> Vatapá</label>
 
-<p>Adicionais (+R$3):</p>
+<p><strong>Adicionais (+R$3):</strong></p>
 <label><input type="checkbox" class="extraPrato" value="Calabresa"> Calabresa</label>
 <label><input type="checkbox" class="extraPrato" value="Batata"> Batata</label>
 
@@ -184,7 +184,7 @@ div.innerHTML=`
 <option value="11">Macaxeira - R$11</option>
 </select>
 
-<p>Adicionais:</p>
+<p><strong>Adicionais:</strong></p>
 <label><input type="checkbox" value="Ketchup"> Ketchup</label>
 <label><input type="checkbox" value="Maionese"> Maionese</label>
 <label><input type="checkbox" value="Cheddar"> Cheddar</label>
@@ -212,7 +212,6 @@ document.getElementById("total").innerText=total;
 
 document.addEventListener("change", atualizarTotal);
 
-// inicial
 addPastel();
 
 // ===== RESUMO =====
