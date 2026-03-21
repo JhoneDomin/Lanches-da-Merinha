@@ -149,7 +149,14 @@ div.innerHTML=`
 <option value="11">Estou com Fome - R$11</option>
 </select>
 
-<p>Adicionais (+R$3 cada):</p>
+<p>Itens:</p>
+<label><input type="checkbox" value="Arroz"> Arroz</label>
+<label><input type="checkbox" value="Farofa"> Farofa</label>
+<label><input type="checkbox" value="Salada"> Salada</label>
+<label><input type="checkbox" value="Vinagrete"> Vinagrete</label>
+<label><input type="checkbox" value="Vatapá"> Vatapá</label>
+
+<p>Adicionais (+R$3):</p>
 <label><input type="checkbox" class="extraPrato" value="Calabresa"> Calabresa</label>
 <label><input type="checkbox" class="extraPrato" value="Batata"> Batata</label>
 
@@ -194,12 +201,10 @@ atualizarTotal();
 function atualizarTotal(){
 let total=0;
 
-// base
 document.querySelectorAll("#pasteis .tam").forEach(s=> total+=parseInt(s.value));
 document.querySelectorAll("#pratinhos .tipo").forEach(s=> total+=parseInt(s.value));
 document.querySelectorAll("#batatas .tipo").forEach(s=> total+=parseInt(s.value));
 
-// adicionais do pratinho (+3 cada)
 document.querySelectorAll(".extraPrato:checked").forEach(()=> total+=3);
 
 document.getElementById("total").innerText=total;
