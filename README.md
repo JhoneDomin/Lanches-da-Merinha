@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
@@ -76,7 +77,7 @@ Total: R$ <span id="total">0</span>
 
 </div>
 
-<!-- 🧾 RESUMO -->
+<!-- RESUMO -->
 <div id="resumoBox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000000cc; justify-content:center; align-items:center;">
 <div style="background:white; padding:20px; border-radius:12px; width:90%; max-width:400px; max-height:80%; overflow:auto;">
 <h2>🧾 Resumo do Pedido</h2>
@@ -148,12 +149,9 @@ div.innerHTML=`
 <option value="11">Estou com Fome - R$11</option>
 </select>
 
-<p>Adicionais:</p>
-<label><input type="checkbox" value="Arroz"> Arroz</label>
-<label><input type="checkbox" value="Farofa"> Farofa</label>
-<label><input type="checkbox" value="Salada"> Salada</label>
-<label><input type="checkbox" value="Vinagrete"> Vinagrete</label>
-<label><input type="checkbox" value="Vatapá"> Vatapá</label>
+<p>Adicionais (+R$3 cada):</p>
+<label><input type="checkbox" class="extraPrato" value="Calabresa"> Calabresa</label>
+<label><input type="checkbox" class="extraPrato" value="Batata"> Batata</label>
 
 <button class="btnRemove" onclick="this.parentElement.remove(); atualizarTotal()">❌ Remover</button>
 `;
@@ -196,9 +194,13 @@ atualizarTotal();
 function atualizarTotal(){
 let total=0;
 
+// base
 document.querySelectorAll("#pasteis .tam").forEach(s=> total+=parseInt(s.value));
 document.querySelectorAll("#pratinhos .tipo").forEach(s=> total+=parseInt(s.value));
 document.querySelectorAll("#batatas .tipo").forEach(s=> total+=parseInt(s.value));
+
+// adicionais do pratinho (+3 cada)
+document.querySelectorAll(".extraPrato:checked").forEach(()=> total+=3);
 
 document.getElementById("total").innerText=total;
 }
@@ -213,39 +215,14 @@ function enviarPedido(){
 let html="";
 let total=document.getElementById("total").innerText;
 
-// PASTEIS
-document.querySelectorAll("#pasteis .box").forEach((p,i)=>{
-let sabor=p.querySelector(".sabor").value;
-let tamanho=p.querySelector(".tam").selectedOptions[0].text;
+document.querySelectorAll(".box").forEach((p,i)=>{
+let titulo=p.querySelector("h3").innerText;
+let tipo=p.querySelector("select")?.selectedOptions[0].text || "";
 
 let add=[];
 p.querySelectorAll("input:checked").forEach(c=>add.push(c.value));
 
-html+=`<b>Pastel ${i+1}:</b> ${sabor} (${tamanho})`;
-if(add.length) html+="<br>➕ "+add.join(", ");
-html+="<br><br>";
-});
-
-// PRATINHOS
-document.querySelectorAll("#pratinhos .box").forEach((p,i)=>{
-let tipo=p.querySelector(".tipo").selectedOptions[0].text;
-
-let add=[];
-p.querySelectorAll("input:checked").forEach(c=>add.push(c.value));
-
-html+=`<b>Pratinho ${i+1}:</b> ${tipo}`;
-if(add.length) html+="<br>➕ "+add.join(", ");
-html+="<br><br>";
-});
-
-// BATATAS
-document.querySelectorAll("#batatas .box").forEach((p,i)=>{
-let tipo=p.querySelector(".tipo").selectedOptions[0].text;
-
-let add=[];
-p.querySelectorAll("input:checked").forEach(c=>add.push(c.value));
-
-html+=`<b>Batata ${i+1}:</b> ${tipo}`;
+html+=`<b>${titulo}:</b> ${tipo}`;
 if(add.length) html+="<br>➕ "+add.join(", ");
 html+="<br><br>";
 });
@@ -266,8 +243,7 @@ let msg="Pedido:%0A";
 
 document.querySelectorAll(".box").forEach((p,i)=>{
 let titulo=p.querySelector("h3").innerText;
-
-let tipo = p.querySelector("select")?.selectedOptions[0].text || "";
+let tipo=p.querySelector("select")?.selectedOptions[0].text || "";
 
 let add=[];
 p.querySelectorAll("input:checked").forEach(c=>add.push(c.value));
